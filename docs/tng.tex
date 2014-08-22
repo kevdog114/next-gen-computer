@@ -2,10 +2,41 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{fullpage}
+\title{The Next Generation Computer, Compiler, Language, and Emulator}
+\date{\today}
+\author{Kevin Schaefer \\ kevin.l.schaefer1394@gmail.com}
 \begin{document}
-\noindent Kevin Schaefer \\
-8-20-2014 \\
-TNG - The Next Generation OS \\
+\maketitle
+
+\subsection*{Preface}
+Thanks for taking time to look at my project. The basic idea behind this
+project is to do something that I think is pretty cool. I basically want
+to integrate aspects of Computer Science, Computer Architecture, and
+Electrical Engineering all together in one project. I have no motivation
+to do this project except my own desire to do something that I think is
+cool and fascinating.
+
+To anybody who is looking for help on one of the topics I touch on,
+good luck and I hope my project helps.
+
+To anybody who is looking to replicate what I have done, I am flattered
+and I hope you are successful. My goal is to provide as much documentation
+as you should need to build it yourself. I hope this project helps your
+interest in these areas and I would love to hear your feedback.
+
+To anybody who is looking to get out of a homework assignment by
+copying my work, you won't get very far in life.
+
+To anybody who thinks I am crazy, I don't really care; I'm doing this
+anyway.
+
+To everyone else, thanks for any interest you have in my project. I'm
+not sure how much my project will benefit you, but you're welcome to
+spend as much time reading through any documents or files I have provided
+or to fork this project and somehow build on it further.
+
+
+\tableofcontents
 
 \chapter{Introduction}
 This paper documents the system being developed by Kevin Schaefer as a learning
@@ -44,7 +75,51 @@ written in the custom language to C++, or vise-versa.
 \chapter{TNG Architecture}
 \section{Introduction}
 This chapter will provide an in-depth explanation of the architecture of the
-system being developed.
+system being developed \footnote{The instruction set was designed to be able to do a
+wide range of things, as well as to be easy to implement in circuitry}.
+
+This computer uses 4 bit opcodes, with 12 bit operands, for a total word size of 16 bits.
+Addresses are represented with 12 bits, resulting in $2^12 = 4096$ addressable locations.
+
+The computer maintains a system stack in memory, with the SP pointing to the top of the stack,
+and an input queue, with the IQP pointing to the front of the queue. All keyboard input is stored
+sequentially in the input queue, and the system stack is used for general purpose operations.
+
+The computer also maintains an IRQ table in memory which maps interrupts to addresses, specifying
+the location of the subprocedure to call when various interrupts are fired.
+
+\section{CPU Registers}
+This computer is slightly unique in that it is designed with as few registers as
+possible. This is to make it easier and cheaper to build. Of course the CPU has a few
+important registers, namely a PC, SP, IR, MCR, IQP, and MBR.
+\subsection{PC}
+  The PC, or Program Counter, stores the address of the currently executing instruction
+  in memory. It is 12 bits wide.
+
+\subsection{SP}
+  The SP, or Stack Pointer, stores the address of the top of the system stack. It is
+  12 bits wide.
+
+\subsection{IR}
+  The IR, or Instruction Register, stores the entire instruction and operand of the currently
+  executing instruction. It is 16 bits wide (4 bit opcode + 12 bit operand).
+
+\subsection{MCR}
+The MCR, or Memory Control Register\footnote{It would ordinarily be called the Memory Address
+  Register, but I needed a good way to also send the operation (read or write), so I figured a
+name change to the Memory Control Register would suffice.}
+  , stores the address of the location in memory to be
+  accessed and the operation to be carried out. The most significant bit represents the
+  memory operation, 0 represents a read and 1 represents a write, and the next 12 bits
+  represent the address. The MCR is 13 bits wide.
+
+\subsection{IQP}
+  The IQP, or Input Queue Pointer, stores the address of the front of the queue where keyboard
+  input to the system is stored. The IQP is 12 bits wide.
+
+\subsection{MBR}
+  The MBR, or Memory Buffer Register, stores any data received from memory. The MBR is 16 bits
+  wide.
 
 \section{Instruction set}
 This section outlines the instruction set of the computer. \\
@@ -64,9 +139,139 @@ This section outlines the instruction set of the computer. \\
   DIV & 0xA & \\
   JPZ & 0xB & Jump if top of stack is zero \\
   JPN & 0xC & Jump if top of stack is negative \\
-  LD & 0xD & Load data \\
-  ST & 0xF & Store data \\
+  PRT & 0xD & Print message, operand is pointer \\
+  RD  & 0xE & Read data from input buffer \\
+  CPU & 0xF & CPU command \\
+  \hline
 \end{tabular}
+
+\subsection{AND}
+  Usage: AND \textless addr\textgreater 
+
+  The AND command performs a simple bitwise AND with the top element on the stack and
+  the word pointed to by the operand. The result is pushed onto the top of the stack.
+
+\subsection{OR}
+  Usage: OR \textless addr\textgreater 
+
+  The OR command performs a simple bitwise OR with the top element on the stack and
+  the word pointed to by the operand. The result is pushed onto the top of the stack.
+
+\subsection{XOR}
+  Usage: XOR \textless addr\textgreater 
+
+  The XOR command performs a simple bitwise XOR with the top element on the stack and
+  the word pointed to by the operand. The result is pushed onto the top of the stack.
+
+\subsection{INV}
+  Usage: INV
+
+  The INV command performs a simple bitwise NOT with the top element on the stack and
+  pushes the result back onto the stack.
+
+\subsection{POP}
+  Usage: POP \textless addr\textgreater 
+
+  The POP command removes the top element from the stack and stores it into the specified
+  address location.
+
+\subsection{PUSH}
+  Usage: PUSH \textless addr\textgreater 
+
+  The PUSH command loads a word from the specified memory location and pushes it onto
+  the top of the stack.
+
+\subsection{ADD}
+  Usage: ADD \textless addr\textgreater 
+
+  The ADD command loads a word from the specified memory location, adds it to the top element
+  of the stack, and pushes the result onto the stack.
+
+\subsection{SUB}
+  Usage: SUB \textless addr\textgreater 
+
+  The SUB command loads a word from the specified memory location, subtracts it from the top
+  element of the stack, and pushes the result onto the stack.
+
+\subsection{MLT}
+  Usage: MLT \textless addr\textgreater 
+
+  The MLT command loads a word from the specified memory location, multiplies it with the top
+  element of the stack, and pushes the result onto the stack.
+
+\subsection{DIV}
+  Usage: DIV \textless addr\textgreater 
+
+  The DIV command loads a word from the specified memory location, divides it by the top element
+  of the stack, and pushes the result onto the stack.
+
+\subsection{JPZ}
+  Usage: JPZ \textless addr\textgreater
+\footnote{A note on going to a specific address, you will have to force JPZ or
+JPN to jump in order to achieve the same result}
+
+  The JPZ command sets the Program Counter to the specified address if the top element of the
+  stack is 0x0000.
+
+\subsection{JPN}
+  Usage: JPN \textless addr\textgreater 
+
+  The JPN command sets the Program Counter to the specified address if the top element of the
+  stack is negative.
+
+\subsection{PRT}
+  Usage: PRT \textless addr\textgreater 
+
+  The PRT command writes data, starting at the specified address until it encounters 0x0000, to
+  the display buffer.
+
+\subsection{RD}
+  Usage: RD \textless addr\textgreater 
+
+  The RD command reads bytes from the system input buffer, pushing them onto the stack, then storing
+  the count into the address specified as an operand.
+
+\subsection{CPU}
+  Usage: CPU \textless cpu\_instruction\textgreater 
+
+  The CPU command is used to access special extended CPU instructions.
+
+\section{Extended CPU operations}
+This section describes the various extended operations the CPU can perform. These mainly are designed
+to access special features of the CPU, not something a standard user-space program would need access to.
+Here are the Extended CPU operations:
+
+\begin{tabular}{|p{3cm}|p{10cm}|}
+  \hline
+  \textbf{Full Opcode} & \textbf{Description} \\
+  \hline
+  0xF0xx & Pushes the address of the IRQ handler for the specified 8 bit IRQ number \\
+  0xF1xx & Pops the top element of the system stack, then stores the lesser 12 bits of that element into
+           the IRQ table for the specified IRQ number \\
+  0xF200 & Disables system interrupts \\
+  0xF201 & Enables system interrupts \\
+  0xF210 & Reads the system interrupt enable flag, and stores either 0xFFFF onto the top of the stack, or
+           0x0000 onto the top of the stack \\
+\end{tabular}
+
+\section{Keyboard Input}
+A computer without any means of keyboard input would be rather boring, so we are designing it to work with
+a standard keyboard. Every key typed will be stored in the Input Queue. Each keypress generates a system
+interrupt, so the inputted data can be processed.
+
+\section{System Interrupts}
+A number of system interrupts exist for various aspects of the system. All interrupts can be disabled via
+the extended CPU operations instructions. All interrupts are stored in a table in memory and can be accessed
+via the extended CPU operations. These interrupts are as follows:
+
+\begin{tabular}{|l|l|}
+  \hline
+  \textbf{IRQ \#} & \textbf{Description} \\
+  \hline
+  0x15 & Keyboard press \\
+  \hline
+\end{tabular}
+
 
 \chapter{TNG Language Specification}
 \section{File types}

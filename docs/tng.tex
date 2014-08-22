@@ -1,0 +1,119 @@
+\documentclass{book}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{fullpage}
+\begin{document}
+\noindent Kevin Schaefer \\
+8-20-2014 \\
+TNG - The Next Generation OS \\
+
+\chapter{Introduction}
+This paper documents the system being developed by Kevin Schaefer as a learning
+exercise in computer science and electrical engineering. It consists of three
+components:
+\begin{enumerate}
+  \item Compiler
+  \item Computer
+  \item Emulator
+\end{enumerate}
+
+The compiler, and associated programming language, is an exercise in writing
+a complete language and compiler capable of compiling it into machine code suitable
+for running on the computer or the emulator. To make it more fun, the language will
+be themed after Star Trek. The high level programming language that will be developed
+will be similar to the C or C++ programming languages, but will incorporate specific
+elements for the computer being developed.
+
+The computer is an exercise in computer or electrical engineering. The computer will
+be developed with as many low-level electrical components as are feasible. This means
+that the computer will consist of a large number of transistors and possibly logic ICs
+to prevent the computer from becoming too large. This basically comes down to the fact
+that building an XOR gate from transistors is pretty straight forward (and also somewhat
+busy work), but using ICs that implement XOR gates helps eliminate some of the busy work.
+On the other hand, certain parts of the computer, namely long-term storage, are going to
+require something other than basic components.
+
+Finally, the emulator will provide a method of testing the compiler and language without having
+to copy the output onto the already built computer. This allows for faster development, and
+is also pretty cool.
+
+Depending on how all of this goes, a converter tool might also be developed to convert code
+written in the custom language to C++, or vise-versa.
+
+
+\chapter{TNG Architecture}
+\section{Introduction}
+This chapter will provide an in-depth explanation of the architecture of the
+system being developed.
+
+\section{Instruction set}
+This section outlines the instruction set of the computer. \\
+\begin{tabular}{|c|c|l|}
+  \hline
+  \textbf{Opcode} & \textbf{Hex} & \textbf{Description} \\
+  \hline
+  AND & 0x1 & bitwise AND \\
+  OR & 0x2 & bitwise OR \\
+  XOR & 0x3 & bitwise XOR \\
+  INV & 0x4 & bitwise invert (not) \\
+  POP & 0x5 & pop value off stack \\
+  PUSH & 0x6 & push value onto stack \\
+  ADD & 0x7 & Add top two values on the stack, pushing the result back on the stack \\
+  SUB & 0x8 & Same as ADD, except it subtracts... \\
+  MLT & 0x9 & \\
+  DIV & 0xA & \\
+  JPZ & 0xB & Jump if top of stack is zero \\
+  JPN & 0xC & Jump if top of stack is negative \\
+  LD & 0xD & Load data \\
+  ST & 0xF & Store data \\
+\end{tabular}
+
+\chapter{TNG Language Specification}
+\section{File types}
+\begin{tabular}{|c|l|}
+  \hline
+  \textbf{Extension} & \textbf{Description} \\
+  \hline
+  .tng & Source code file \\
+  .st  & Header file \\
+  \hline
+\end{tabular}
+
+\section{Keywords}
+
+\section{Sample program}
+\begin{lstlisting}
+**Section: Credits
+  Author: Kevin Schaefer
+  Date: 8-20-2014
+  Package: Samples
+  Email: kevin.l.schaefer1394@gmail.com
+**EndSection: Credits
+**Section: Code
+
+* This is the main code section in the file
+
+* Define a sub procedure with a parameter of type int, which returns nothing
+episode printHello(int param1) space
+{
+  * Print a message to the screen
+  write("Welcome, the parameter is ", param1);
+
+  * Return nothing
+  return space;
+}
+
+* The main entry point of the program
+episode enterprise() space
+{
+  * Call a sub procedure
+  warp printHello(1);
+
+  * Return nothing
+  return space;
+}
+
+**EndSection: Code
+\end{lstlisting}
+
+\end{document}

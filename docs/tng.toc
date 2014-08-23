@@ -27,7 +27,65 @@
 \contentsline {section}{\numberline {2.4}Extended CPU operations}{10}
 \contentsline {section}{\numberline {2.5}Keyboard Input}{10}
 \contentsline {section}{\numberline {2.6}System Interrupts}{11}
-\contentsline {chapter}{\numberline {3}TNG Language Specification}{13}
-\contentsline {section}{\numberline {3.1}File types}{13}
-\contentsline {section}{\numberline {3.2}Keywords}{13}
-\contentsline {section}{\numberline {3.3}Sample program}{13}
+\contentsline {section}{\numberline {2.7}Input and Output}{11}
+\contentsline {subsection}{\numberline {2.7.1}Keyboard}{11}
+\contentsline {subsection}{\numberline {2.7.2}Video output}{11}
+\contentsline {chapter}{\numberline {3}TNG Operating System}{13}
+\contentsline {section}{\numberline {3.1}Introduction}{13}
+\contentsline {section}{\numberline {3.2}Privileged Execution}{13}
+\contentsline {section}{\numberline {3.3}Interrupts}{13}
+\contentsline {subsection}{\numberline {3.3.1}Interrupt Vector Table}{13}
+\contentsline {subsection}{\numberline {3.3.2}First Level Interrupt Handler}{13}
+\contentsline {subsection}{\numberline {3.3.3}Second Level Interrupt Handlers}{13}
+\contentsline {section}{\numberline {3.4}System Timer}{13}
+\contentsline {section}{\numberline {3.5}Processes}{13}
+\contentsline {subsection}{\numberline {3.5.1}Process Control Block}{13}
+\contentsline {subsection}{\numberline {3.5.2}Process Scheduling}{13}
+\contentsline {subsection}{\numberline {3.5.3}Process Execution}{13}
+\contentsline {chapter}{\numberline {4}TNG Language Specification}{15}
+\contentsline {section}{\numberline {4.1}Introduction}{15}
+\contentsline {section}{\numberline {4.2}Basic File Structure}{16}
+\contentsline {subsection}{\numberline {4.2.1}Credits File Section}{16}
+\contentsline {subsection}{\numberline {4.2.2}Code File Section}{16}
+\contentsline {subsection}{\numberline {4.2.3}Other File Sections}{16}
+\contentsline {section}{\numberline {4.3}Data Types}{16}
+\contentsline {subsection}{\numberline {4.3.1}Basic Data Types}{16}
+\contentsline {subsection}{\numberline {4.3.2}Custom Data Types}{16}
+\contentsline {section}{\numberline {4.4}Operators}{16}
+\contentsline {subsection}{\numberline {4.4.1}Overview}{16}
+\contentsline {subsection}{\numberline {4.4.2}Operator Precedence}{16}
+\contentsline {subsection}{\numberline {4.4.3}Operator Associativity}{16}
+\contentsline {section}{\numberline {4.5}Functions}{16}
+\contentsline {subsection}{\numberline {4.5.1}Parameters}{16}
+\contentsline {subsection}{\numberline {4.5.2}Return Types}{16}
+\contentsline {subsection}{\numberline {4.5.3}Function Calling}{16}
+\contentsline {section}{\numberline {4.6}Classes}{16}
+\contentsline {subsection}{\numberline {4.6.1}Constructors}{16}
+\contentsline {subsection}{\numberline {4.6.2}Destructors}{16}
+\contentsline {subsection}{\numberline {4.6.3}Properties}{16}
+\contentsline {subsection}{\numberline {4.6.4}Methods}{16}
+\contentsline {subsection}{\numberline {4.6.5}Access Control}{16}
+\contentsline {subsubsection}{Private}{16}
+\contentsline {subsubsection}{Public}{16}
+\contentsline {section}{\numberline {4.7}Flow Control}{16}
+\contentsline {subsection}{\numberline {4.7.1}Branching Statements}{16}
+\contentsline {subsubsection}{If Statement}{16}
+\contentsline {subsubsection}{If-else Statement}{16}
+\contentsline {subsubsection}{If-else-if Statement}{16}
+\contentsline {subsection}{\numberline {4.7.2}Looping Statements}{16}
+\contentsline {subsubsection}{For loop}{16}
+\contentsline {subsubsection}{Do while loop}{16}
+\contentsline {subsubsection}{While loop}{16}
+\contentsline {subsection}{\numberline {4.7.3}Expressions}{16}
+\contentsline {subsection}{\numberline {4.7.4}Variables}{16}
+\contentsline {subsubsection}{Variable Scope}{16}
+\contentsline {subsection}{\numberline {4.7.5}Literals}{16}
+\contentsline {subsubsection}{Character}{16}
+\contentsline {subsubsection}{String}{16}
+\contentsline {subsubsection}{Integer}{16}
+\contentsline {subsubsection}{Float}{16}
+\contentsline {subsection}{\numberline {4.7.6}Arrays}{16}
+\contentsline {section}{\numberline {4.8}Keywords}{16}
+\contentsline {section}{\numberline {4.9}Sample program}{16}
+\contentsline {chapter}{\numberline {5}TNG Language Compiler}{19}
+\contentsline {chapter}{\numberline {6}System Emulator}{21}

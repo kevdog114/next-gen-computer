@@ -14,7 +14,10 @@ project is to do something that I think is pretty cool. I basically want
 to integrate aspects of Computer Science, Computer Architecture, and
 Electrical Engineering all together in one project. I have no motivation
 to do this project except my own desire to do something that I think is
-cool and fascinating.
+cool and fascinating. Please note that this is a work in progress and will
+be changing as time progresses. This document also serves as my notes to
+myself, so it is possible that portions of it will not be very clear;
+sorry in advance for that.
 
 To anybody who is looking for help on one of the topics I touch on,
 good luck and I hope my project helps.
@@ -245,13 +248,14 @@ Here are the Extended CPU operations:
   \hline
   \textbf{Full Opcode} & \textbf{Description} \\
   \hline
-  0xF0xx & Pushes the address of the IRQ handler for the specified 8 bit IRQ number \\
-  0xF1xx & Pops the top element of the system stack, then stores the lesser 12 bits of that element into
-           the IRQ table for the specified IRQ number \\
-  0xF200 & Disables system interrupts \\
-  0xF201 & Enables system interrupts \\
-  0xF210 & Reads the system interrupt enable flag, and stores either 0xFFFF onto the top of the stack, or
+  0xF000 & Set the address of the IHR Register to the top element on the stack \\
+  0xF001 & Store the contents of the IHR onto the top of the stack \\
+  0xF010 & Disables system interrupts \\
+  0xF011 & Enables system interrupts \\
+  0xF012 & Reads the system interrupt enable flag, and stores either 0xFFFF onto the top of the stack, or
            0x0000 onto the top of the stack \\
+  0xF100 & not implemented yet... \\
+  \hline
 \end{tabular}
 
 \section{Keyboard Input}
@@ -260,21 +264,59 @@ a standard keyboard. Every key typed will be stored in the Input Queue. Each key
 interrupt, so the inputted data can be processed.
 
 \section{System Interrupts}
-A number of system interrupts exist for various aspects of the system. All interrupts can be disabled via
-the extended CPU operations instructions. All interrupts are stored in a table in memory and can be accessed
-via the extended CPU operations. These interrupts are as follows:
+System interrupts are used to signal special events to the operating system. Interrupts are signaled by
+bringing one of four available interrupt request (IRQ0 - IRQ3) lines to the active state. When the processor
+finishes a complete instruction cycle, it polls the four IRQ lines. If one or more lines are active, it invokes
+the First Level Interrupt Handler\footnote{See IHR Register}. When this occurs, the CPU performs a context switch,
+and loading the address of the FLIH via the IHR Register. The FLIH's job is simply to queue the interrupt request
+and to notify the requestor that its request has been received. The FLIH, which will be defined by the OS,
+pushes the IRQ onto the Interrupt Request Queue in main memory. It then signals an IRR (Interrupt Request
+Received) to the appropriate requestor. The requestor must then bring its associated interrupt request line to
+the inactive state as it waits to be serviced.
 
-\begin{tabular}{|l|l|}
+After the FLIH saves off the interrupt request to memory, the CPU can switch back to another process. At a later
+time, the OS can schedule a Second Level Interrupt Handler to service a waiting interrupt request from the
+Interrupt Request Queue.
+
+When the OS schedules a Second Level Interrupt Handler, it loads the IRQ number (0-3) from the queue, and then
+looks up the address of the appropriate interrupt handler in the interrupt vector table. The specified
+interrupt request is popped off the front of the Interrupt Request Queue, and the interrupt handler is invoked.
+The interrupt handler is then responsible for alerting the appropriate requestor that its interrupt request is
+being serviced. The requestor can then send the appropriate data via the system bus to the CPU for processing
+by the interrupt handler.
+
+\begin{tabular}{|l|l|l|}
   \hline
   \textbf{IRQ \#} & \textbf{Description} \\
   \hline
-  0x15 & Keyboard press \\
+  0x0 & Exception \\
+  0x1 & System Timer \\
+  0x2 & Keyboard key received \\
+  0x3 & Reserved \\
   \hline
 \end{tabular}
 
+\section{Input and Output}
+\subsection{Keyboard}
+\subsection{Video output}
+
+\chapter{TNG Operating System}
+\textit{Under construction}
+
+\section{Introduction}
+\section{Privileged Execution}
+\section{Interrupts}
+\subsection{Interrupt Vector Table}
+\subsection{First Level Interrupt Handler}
+\subsection{Second Level Interrupt Handlers}
+\section{System Timer}
+\section{Processes}
+\subsection{Process Control Block}
+\subsection{Process Scheduling}
+\subsection{Process Execution}
 
 \chapter{TNG Language Specification}
-\section{File types}
+\section{Introduction}
 \begin{tabular}{|c|l|}
   \hline
   \textbf{Extension} & \textbf{Description} \\
@@ -283,6 +325,47 @@ via the extended CPU operations. These interrupts are as follows:
   .st  & Header file \\
   \hline
 \end{tabular}
+\section{Basic File Structure}
+\subsection{Credits File Section}
+\subsection{Code File Section}
+\subsection{Other File Sections}
+\section{Data Types}
+\subsection{Basic Data Types}
+\subsection{Custom Data Types}
+\section{Operators}
+\subsection{Overview}
+\subsection{Operator Precedence}
+\subsection{Operator Associativity}
+\section{Functions}
+\subsection{Parameters}
+\subsection{Return Types}
+\subsection{Function Calling}
+\section{Classes}
+\subsection{Constructors}
+\subsection{Destructors}
+\subsection{Properties}
+\subsection{Methods}
+\subsection{Access Control}
+\subsubsection{Private}
+\subsubsection{Public}
+\section{Flow Control}
+\subsection{Branching Statements}
+\subsubsection{If Statement}
+\subsubsection{If-else Statement}
+\subsubsection{If-else-if Statement}
+\subsection{Looping Statements}
+\subsubsection{For loop}
+\subsubsection{Do while loop}
+\subsubsection{While loop}
+\subsection{Expressions}
+\subsection{Variables}
+\subsubsection{Variable Scope}
+\subsection{Literals}
+\subsubsection{Character}
+\subsubsection{String}
+\subsubsection{Integer}
+\subsubsection{Float}
+\subsection{Arrays}
 
 \section{Keywords}
 
@@ -320,5 +403,13 @@ episode enterprise() space
 
 **EndSection: Code
 \end{lstlisting}
+
+\chapter{TNG Language Compiler}
+\textit{Under construction}
+
+\chapter{System Emulator}
+\textit{Under construction}
+
+
 
 \end{document}

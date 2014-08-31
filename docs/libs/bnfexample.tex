@@ -1,0 +1,106 @@
+% here's the example
+\input generic.tex
+\input bnf.tex
+
+\begingrammar
+%		
+<input>:	{$\phi$};
+		<statement>.\par
+
+<statement>:	"$\{$" <compound> "$\}$" [";"] ;
+		<single> [";"] ;
+		";".
+
+<compound>:	<single> ";" <compound> ;
+		<single>.
+
+<single>:	"if" "(" <expression> ")" <statement> ["else" <statement>];
+		"case" "$\{$" <case-body> "$\}$";
+		"for" "(" <expression> ";" <expression> ";" <expression> ")",
+			<statement>;
+		"while" "(" <expression> ")" <statement>;
+		"do" <expression> "while" "(" <expression> ")";
+		"sum" "(" <expression> ";" <expression> ")" <statment>;
+		"product" "(" <expression> ";" <expression> ")" <statment>;
+		"break";
+		"continue";
+		"return" <expression>;
+		"clear";
+		"load" <expression>;
+		"save" <expression>;
+		"release" <expression>;
+		"show" ["variables" | "functions" | "set" | "all" | <expression>];
+		"set"  ["prompt" | "precision"] [<expression>];
+		<equation>.
+
+<case-body>:	"case" <expression> ":" <compound> <case-body>;
+		 "default:" <compound>
+
+<equation>:	<var> "=" <expression>;
+		<var>"[" <selector> "]" = <expression>;
+		<function> = <input>;
+		<expression>.
+
+<selector>:	<factor> "," <factor>;
+		<factor> ",";
+		"," <factor>.
+
+<expression>:	<term> "+" <expression>;
+		<term> "--" <expression>.		
+
+<term>:		<factor> <operator> <term>.
+
+<factor>	<pre-op> <factor$'$> <post-op>.
+
+<factor$'$>:	<number>;
+		"+" <number>;
+		"--" <number>;
+		"(" <number> ")";
+		<variable>;
+		<variable>"[" <selector> "]";
+		<string>;
+		<matrix>;
+		<function>.
+
+<pre-op>:	"++" | "--{\kern 1pt}--" | "$\sim$" | "!".
+
+<post-op>:	"$\uparrow$" <factor> 
+		| "**" <factor>;
+		"++" | "--{\kern 1pt}--" | "!".		
+
+<matrix>:	"[" <row-list> "]".
+
+<row-list>:	"[" <value-list> "]" [","] <row-list>;
+		"[" <value-list> "]" [","] <row-list>;
+		<value-list>.
+
+<value-list>:	[ <string> ] <expression> "," <value-list>;
+		[ <string> ] <expression>.
+
+<function>:	<variable> "(" <arg-list> ")".
+
+<arg-list>:	$\phi$;
+		<variable> "," <arglist>;
+		"\dots".
+
+<string>:	" `` "  <anything> " '' ".
+
+<number>:	<real-number>;
+		"$\{$" <real-number> "," <real-number> "$\}$";
+		{$\backslash$}b[01][01]+;
+		{$\backslash$}o[07][07]+;
+		\$[0-9A-Fa-f][0-9A-Fa-f]+.
+
+%<real-number>:	[\+--]?[0-9][0-9]+[\.[0-9]+]?[[eE][0-9][0-9]+].
+
+<operator>:	"*" |	 "/"	|     "$\backslash$"	| "\%";
+		"==" |	 "!="	|     "$>$" 		| "$<$"  
+		| "$<$=" | "$>$=";
+		"\ul ="	| "\ul !=" |  "\ul $<$" | "\ul $>$" 
+		| "\ul$<$=" | "\ul$>$=";
+		"\&"	 | "$\vert$"  | "$\uparrow\uparrow$";
+		"\&\&"	| "$\Vert$"  | "\ul$\uparrow$".
+		
+\endgrammar
+\bye
+

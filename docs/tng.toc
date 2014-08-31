@@ -44,14 +44,14 @@
 \contentsline {subsection}{\numberline {3.5.3}Process Execution}{13}
 \contentsline {chapter}{\numberline {4}TNG Language Specification}{15}
 \contentsline {section}{\numberline {4.1}Introduction}{15}
-\contentsline {section}{\numberline {4.2}Basic File Structure}{16}
-\contentsline {subsection}{\numberline {4.2.1}Credits File Section}{16}
-\contentsline {subsection}{\numberline {4.2.2}Code File Section}{16}
-\contentsline {subsection}{\numberline {4.2.3}Other File Sections}{16}
-\contentsline {section}{\numberline {4.3}Data Types}{16}
-\contentsline {subsection}{\numberline {4.3.1}Basic Data Types}{16}
-\contentsline {subsection}{\numberline {4.3.2}Custom Data Types}{16}
-\contentsline {section}{\numberline {4.4}Operators}{16}
+\contentsline {section}{\numberline {4.2}Basic File Structure}{15}
+\contentsline {subsection}{\numberline {4.2.1}Credits File Section}{15}
+\contentsline {subsection}{\numberline {4.2.2}Code File Section}{15}
+\contentsline {subsection}{\numberline {4.2.3}Other File Sections}{15}
+\contentsline {section}{\numberline {4.3}Data Types}{15}
+\contentsline {subsection}{\numberline {4.3.1}Basic Data Types}{15}
+\contentsline {subsection}{\numberline {4.3.2}Custom Data Types}{15}
+\contentsline {section}{\numberline {4.4}Operators}{15}
 \contentsline {subsection}{\numberline {4.4.1}Overview}{16}
 \contentsline {subsection}{\numberline {4.4.2}Operator Precedence}{16}
 \contentsline {subsection}{\numberline {4.4.3}Operator Associativity}{16}

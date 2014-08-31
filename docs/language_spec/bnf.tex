@@ -1,0 +1,53 @@
+\begingrammar
+<program>: <topStatement> | <topStatement> <program>
+
+<topStatement>: <comment> <topStatement> | <func> <topStatement> | $epsilon$
+
+<comment>: <commentDec> <string>
+
+<func> : <funcHead> <funcBody>
+
+<funcHead> : <type> <varName> <paramList>
+
+<funcBody> : <openBlock> <statements> <closeBlock>
+
+<statements> : <statement> <statements> | $\epsilon$
+
+<statement> : <varDec> | <expr> | <if> | <loop> | <print> | <read>
+
+<varDec> :
+
+<if> : 
+
+<loop> : <forLoop> | <whileLoop> | <doWhileLoop>
+
+<forLoop> : 
+
+<whileLoop> : 
+
+<doWhileLoop> : 
+
+<print> : 
+
+<read> : 
+
+<string> : <alphaChar> <string> | <numChar> <string> |
+           <miscChar> <string> | $\epsilon$
+
+<alphaChar> : <A> | <B> | <C> | <D> | <E> | <F> | 
+              <G> | <H> | <I> | <J> | <K> | <L> |
+              <M> | <N> | <O> | <P> | <Q> | <R> |
+              <S> | <T> | <U> | <V> | <W> | <X> |
+              <Y> | <Z>
+
+<numChar> : <0> | <1> | <2> | <3> | <4> | <5> | <6> | <7> | <8> | <9>
+
+<miscChar> : <space>
+
+<openBlock> : ``\{''
+
+<closeBlock> : ``\}''
+
+<commentDec> : ``CLOAK''
+
+\endgrammar

@@ -2,6 +2,8 @@
 #define scanner_h
 
 #include <iostream>
+#include <fstream>
+#include "LexToken.h"
 
 using namespace std;
 
@@ -9,8 +11,17 @@ using namespace std;
 class scanner
 {
   private:
+    int _currentLine;
+    ifstream _fin;
+    bool keepReading(char c);
+    char getChar();
   public:
-    scanner();
+    scanner(string Filename);
+
+    int GetCurrentLine();
+//    ifstream GetFileHandle();
+
+    LexToken Scan();
 };
 
 #endif
